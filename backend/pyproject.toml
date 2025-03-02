@@ -1,0 +1,63 @@
+[tool.poetry]
+name = "on-top-of"
+version = "0.1.0"
+description = "Backend for the OnTopOf Topic Subscription Engine"
+authors = ["Till Speicher <dev@tillspeicher.com>"]
+readme = "README.md"
+packages = [{ include = "src" }]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+fastapi = { extras = ["standard"], version = "^0.115.5" }
+websockets = "^14.1"
+vertexai = "^1.71.1"
+python-dotenv = "^1.0.1"
+google-genai = "^1.2.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 80
+target-version = ['py313']
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.git
+    | \.hg
+    | \.tox
+    | \.venv
+    | _build
+    | buck-out
+    | build
+    | \.mypy_cache
+    | build
+    | dist
+)/
+'''
+
+[tool.isort]
+atomic = true
+profile = "black"
+line_length = 80
+skip_gitignore = true
+lines_after_imports = 2
+known_first_party = []
+
+[tool.flake8]
+max-line-length = 81
+max-doc-length = 81
+max-complexity = 10
+# ignore = ["E203", "E266", "E501", "W503", "F403", "F401", "E402", "C901"]
+# per-file-ignores = ["__init__.py:F401", "tests/*:S101"]
+exclude = [".git", "__pycache__", "dist"]
+
+[tool.pyright]
+include = ["src"]
+executionEnvironments = [
+    { root = "tests", extraPaths = [
+        "src",
+    ] },
+    { root = "src" },
+]
